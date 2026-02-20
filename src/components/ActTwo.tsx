@@ -18,7 +18,7 @@ interface Question {
 const questions: Question[] = [
   {
     question: "O que mais me move todos os dias?",
-    options: ["Competição", "Vaidade", "Vontade de crescer e mudar a realidade da minha família", "Pressão social"],
+    options: ["Competição", "Vaidade", "Vontade de crescer e mudar a realidade atual", "Pressão social"],
     correct: 2,
     rightMsg: "Exato. Meu propósito é maior que eu.",
     wrongMsg: "Talvez nem sempre eu fale sobre isso… Mas o que realmente me move é a vontade de crescer e mudar a realidade da minha família.",
