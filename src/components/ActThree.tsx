@@ -9,33 +9,38 @@ interface ActThreeProps {
 const timeline = [
   {
     date: "14/04/2025",
-    title: "O início de algo",
-    text: "Foi nesse dia que algo mudou. Uma conversa que parecia simples, mas que plantou uma semente que eu não esperava.",
+    title: "Primeira conversa",
+    text: "Foi quando trocamos mensagens pela primeira vez no WhatsApp. Naquele dia você me ajudou a enviar meu currículo para a Mamboo. Uma conexão inesperada começou ali.",
   },
   {
     date: "21/04/2025",
-    title: "A conexão cresceu",
-    text: "Cada conversa ia ficando mais natural, mais profunda. Eu percebi que não era só interesse — era algo que crescia por dentro.",
+    title: "Primeiro encontro no trabalho",
+    text: "Dia em que te vi pela primeira vez pessoalmente, quando comecei a trabalhar na Mamboo. Lembro de como sua presença ficou marcada naquele dia.",
   },
   {
-    date: "Junho 2025",
-    title: "Pensamentos constantes",
-    text: "Nesse mês, percebi que pensar em você já tinha virado rotina. Não por hábito, mas porque você simplesmente aparecia nos meus pensamentos.",
+    date: "Depois do início na Mamboo",
+    title: "Rotina juntos",
+    text: "Voltávamos sempre juntos para pegar o mesmo táxi. Pequenos momentos que se tornaram rotina.",
+  },
+  {
+    date: "Junho de 2025",
+    title: "Você saiu da Mamboo e me abandonou lá kkk",
+    text: "Você sumiu por uns tempos, mas mantivemos contato. Continuavas a ver os reels e músicas que eu mandava no Instagram e WhatsApp.",
   },
   {
     date: "13/12/2025",
-    title: "Um marco silencioso",
-    text: "Esse dia ficou guardado. Talvez você nem saiba o quanto ele significou para mim, mas foi ali que entendi a profundidade do que sentia.",
+    title: "DevFest",
+    text: "Voltamos a nos encontrar no DevFest. Um reencontro que trouxe lembranças e boas conversas.",
   },
   {
     date: "13/02/2026",
-    title: "O primeiro encontro",
-    text: "Finalmente te vi de perto. E foi diferente de tudo que eu imaginava — foi melhor. Ali percebi que a realidade superava qualquer expectativa.",
+    title: "Primeiro date oficial (eu considero um date kkkk)",
+    text: "Nosso primeiro date real: comemos gelado e caminhamos pela cidade de Luanda. Foi um momento leve, divertido e que me fez perceber algo diferente em mim e gostar ainda mais de ti.",
   },
   {
     date: "15/02/2026",
-    title: "A confirmação",
-    text: "Foi ali que percebi que o que sinto por você não é passageiro.",
+    title: "Cinema romântico",
+    text: "Fomos ao cinema ver um filme de romance. Foi ali que percebi diretamente o quanto estou apaixonado por você.\n\nFoi ali que percebi que o que sinto por você não é passageiro.",
   },
 ];
 
