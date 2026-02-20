@@ -27,7 +27,7 @@ const ActOne = ({ onNext }: ActOneProps) => {
         texts={[
           "Carregando histórico…",
           "Detectando conexão recorrente…",
-          "Usuária reconhecida.",
+          "Usuária reconhecida: Goreth Manuel.",
         ]}
         speed={50}
         delayBetween={1000}
