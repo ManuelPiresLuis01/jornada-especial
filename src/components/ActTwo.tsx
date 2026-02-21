@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BarChart3, ArrowRight, CheckCircle2, XCircle } from "lucide-react";
 import TypingText from "./TypingText";
@@ -52,25 +52,93 @@ const ActTwo = ({ onNext }: ActTwoProps) => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [allDone, setAllDone] = useState(false);
   const [resultTypingDone, setResultTypingDone] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [progress, setProgress] = useState<number | null>(null);
+
+  const totalQuestions = questions.length;
 
   const handleSelect = (idx: number) => {
     if (showFeedback) return;
+    const isCorrectSelection = idx === questions[currentQ].correct;
     setSelected(idx);
     setShowFeedback(true);
-
-    setTimeout(() => {
-      if (currentQ < questions.length - 1) {
-        setCurrentQ((prev) => prev + 1);
-        setSelected(null);
-        setShowFeedback(false);
-      } else {
-        setAllDone(true);
-      }
-    }, 3000);
+    if (isCorrectSelection) {
+      setCorrectCount((prev) => prev + 1);
+    }
   };
 
   const q = questions[currentQ];
   const isCorrect = selected === q.correct;
+
+  useEffect(() => {
+    if (!showFeedback) return;
+
+    setProgress(100);
+    const totalDuration = 10000;
+    const tickMs = 100;
+    const steps = totalDuration / tickMs;
+    const decrement = 100 / steps;
+
+    const intervalId = setInterval(() => {
+      setProgress((prev) =>
+        prev === null ? 100 : Math.max(prev - decrement, 0)
+      );
+    }, tickMs);
+
+    const timeoutId = setTimeout(() => {
+      if (currentQ < totalQuestions - 1) {
+        setCurrentQ((prev) => prev + 1);
+        setSelected(null);
+        setShowFeedback(false);
+        setProgress(null);
+      } else {
+        setAllDone(true);
+        setShowFeedback(false);
+        setProgress(null);
+      }
+    }, 10000);
+
+    return () => {
+      clearInterval(intervalId);
+      clearTimeout(timeoutId);
+    };
+  }, [showFeedback, currentQ, totalQuestions]);
+
+  const analysisTexts = useMemo(() => {
+    if (correctCount === totalQuestions) {
+      return [
+        "Resultado da análise:",
+        `Acertos: ${correctCount}/${totalQuestions}.`,
+        "Conexão total.",
+        "Você me entende por inteiro.",
+      ];
+    }
+
+    if (correctCount >= totalQuestions - 1) {
+      return [
+        "Resultado da análise:",
+        `Acertos: ${correctCount}/${totalQuestions}.`,
+        "Sintonia muito alta.",
+        "Direção clara.",
+      ];
+    }
+
+    if (correctCount >= Math.ceil(totalQuestions / 2)) {
+      return [
+        "Resultado da análise:",
+        `Acertos: ${correctCount}/${totalQuestions}.`,
+        "Boa conexão.",
+        "Ajustes finos e seguimos.",
+      ];
+    }
+
+    return [
+      "Resultado da análise:",
+      `Acertos: ${correctCount}/${totalQuestions}.`,
+      "Conexão instável.",
+      "Vamos alinhar mais.",
+    ];
+  }, [correctCount, totalQuestions]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 relative">
@@ -149,9 +217,23 @@ const ActTwo = ({ onNext }: ActTwoProps) => {
                 ) : (
                   <XCircle className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                 )}
-                <p className={isCorrect ? "text-terminal-green" : "text-primary"}>
-                  {isCorrect ? q.rightMsg : q.wrongMsg}
-                </p>
+                <div className="flex-1">
+                  <p className={isCorrect ? "text-terminal-green" : "text-primary"}>
+                    {isCorrect ? q.rightMsg : q.wrongMsg}
+                  </p>
+                  {progress !== null && (
+                    <div className="mt-4">
+                      <div className="h-2.5 rounded-full bg-secondary/70 overflow-hidden">
+                        <motion.div
+                          initial={false}
+                          animate={{ width: `${progress}%` }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className="h-full bg-primary/90"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -165,12 +247,7 @@ const ActTwo = ({ onNext }: ActTwoProps) => {
           <BarChart3 className="w-10 h-10 text-primary mx-auto mb-6" />
 
           <TypingText
-            texts={[
-              "Resultado da análise:",
-              "Sentimento consistente.",
-              "Intensidade estável.",
-              "Direção clara.",
-            ]}
+            texts={analysisTexts}
             speed={40}
             delayBetween={600}
             onComplete={() => setResultTypingDone(true)}
