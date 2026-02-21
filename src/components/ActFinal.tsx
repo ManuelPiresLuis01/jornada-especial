@@ -10,7 +10,7 @@ const ActFinal = () => {
   const [showConfetti, setShowConfetti] = useState(false);
 
   const sendWhatsApp = (message: string) => {
-    const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`; 
     window.open(url, "_blank");
   };
 
@@ -19,9 +19,6 @@ const ActFinal = () => {
     setShowConfetti(true);
     sendWhatsApp("Aceito começar uma história contigo ❤️");
   };
-
-
-
 
   const handleThink = () => {
     setChosen("think");
